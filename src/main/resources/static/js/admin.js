@@ -14,29 +14,33 @@ function ensureSubscription(orderId) {
     });
 }
 
-function rowHtml(order) {
+function cardHtml(order) {
     const next = NEXT_STATUS[order.status];
     const terminal = TERMINAL_STATUSES.has(order.status);
     return `
-        <td>${order.customerId}</td>
-        <td><span class="status-badge status-${order.status}">${statusLabel(order.status)}</span></td>
-        <td>${formatDateTime(order.createdAt)}</td>
-        <td class="actions">
-            ${next ? `<button data-action="advance" data-order="${order.id}">Suivant : ${statusLabel(next)}</button>` : ''}
-            ${!terminal ? `<button data-action="fail" data-order="${order.id}" class="danger">Marquer en echec</button>` : ''}
-            <a href="/client.html?orderId=${order.id}" target="_blank">Lien client</a>
-        </td>
+        <div class="order-card-top">
+            <span class="status-pill status-${order.status}">${statusLabel(order.status)}</span>
+            <span class="order-time">${formatDateTime(order.createdAt)}</span>
+        </div>
+        <p class="order-customer">${order.customerId}</p>
+        <p class="order-id">#${order.id.slice(0, 8)}</p>
+        <div class="order-actions">
+            ${next ? `<button class="btn btn-primary" data-action="advance" data-order="${order.id}">Suivant : ${statusLabel(next)} &rarr;</button>` : ''}
+            ${!terminal ? `<button class="btn btn-outline" data-action="fail" data-order="${order.id}">Marquer en echec</button>` : ''}
+            <a class="btn btn-ghost" href="/client.html?orderId=${order.id}" target="_blank">Voir cote client</a>
+        </div>
     `;
 }
 
 function renderRow(order) {
-    let row = document.getElementById('row-' + order.id);
-    if (!row) {
-        row = document.createElement('tr');
-        row.id = 'row-' + order.id;
-        document.getElementById('orders-body').appendChild(row);
+    let card = document.getElementById('row-' + order.id);
+    if (!card) {
+        card = document.createElement('article');
+        card.className = 'order-card';
+        card.id = 'row-' + order.id;
+        document.getElementById('orders-grid').appendChild(card);
     }
-    row.innerHTML = rowHtml(order);
+    card.innerHTML = cardHtml(order);
     ensureSubscription(order.id);
 }
 
@@ -72,7 +76,7 @@ function updateStatus(orderId, status) {
         .catch((err) => alert('Impossible de mettre a jour la commande : ' + err.message));
 }
 
-document.getElementById('orders-body').addEventListener('click', (event) => {
+document.getElementById('orders-grid').addEventListener('click', (event) => {
     const button = event.target.closest('button[data-action]');
     if (!button) return;
     const orderId = button.dataset.order;

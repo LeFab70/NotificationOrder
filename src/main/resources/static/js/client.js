@@ -10,21 +10,52 @@ function addEntry(entry) {
     updateCurrentStatus();
 }
 
-function renderTimeline() {
-    document.getElementById('timeline').innerHTML = entries.map((entry) => `
-        <li>
-            <span class="status-badge status-${entry.status}">${statusLabel(entry.status)}</span>
-            <span class="timeline-time">${formatDateTime(entry.createdAt)}</span>
+function stepHtml(status, entry, state) {
+    const symbol = state === 'done' ? '&check;' : state === 'failed' ? '&times;' : '';
+    return `
+        <li class="step ${state}">
+            <span class="step-dot">${symbol}</span>
+            <div class="step-body">
+                <p class="step-label">${statusLabel(status)}</p>
+                ${entry ? `<p class="step-time">${formatDateTime(entry.createdAt)}</p>` : ''}
+            </div>
         </li>
-    `).join('');
+    `;
+}
+
+// Reconstruit le parcours complet (etapes passees, en cours, a venir) a partir
+// du dernier evenement connu pour chaque statut, plutot que d'afficher un simple
+// journal brut - c'est ce qui donne l'effet "suivi de livraison".
+function renderTimeline() {
+    const byStatus = new Map(entries.map((entry) => [entry.status, entry]));
+    const failed = byStatus.get('FAILED');
+    const lastStatus = entries[entries.length - 1]?.status;
+
+    let html = '';
+    for (const status of STATUS_SEQUENCE) {
+        const entry = byStatus.get(status);
+        if (entry) {
+            const state = status === lastStatus && !failed ? 'current' : 'done';
+            html += stepHtml(status, entry, state);
+        } else if (failed) {
+            break; // une etape jamais atteinte a cause d'un echec n'est pas affichee
+        } else {
+            html += stepHtml(status, null, 'pending');
+        }
+    }
+    if (failed) {
+        html += stepHtml('FAILED', failed, 'failed');
+    }
+
+    document.getElementById('timeline').innerHTML = html;
 }
 
 function updateCurrentStatus() {
     if (entries.length === 0) return;
     const last = entries[entries.length - 1];
-    const badge = document.getElementById('current-status');
-    badge.textContent = statusLabel(last.status);
-    badge.className = 'status-badge status-' + last.status;
+    const pill = document.getElementById('current-status');
+    pill.textContent = statusLabel(last.status);
+    pill.className = 'status-pill status-pill-lg status-' + last.status;
 }
 
 function showMissing(message) {

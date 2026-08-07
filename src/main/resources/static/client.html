@@ -2,22 +2,33 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Order tracking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
-<h1>Suivi de votre commande</h1>
-<div id="connection-status" class="connection-status">Connexion...</div>
+<div class="page page-narrow">
+    <header class="page-header">
+        <div>
+            <p class="eyebrow">Suivi</p>
+            <h1>Votre commande</h1>
+        </div>
+        <div id="connection-status" class="connection-pill">Connexion...</div>
+    </header>
 
-<div id="order-missing" class="hidden">Aucune commande specifiee.</div>
+    <div id="order-missing" class="empty-state hidden"></div>
 
-<div id="order-panel" class="hidden">
-    <p>Commande <strong id="order-id"></strong> - client <span id="order-customer"></span></p>
-    <p>Statut actuel : <span id="current-status" class="status-badge"></span></p>
+    <div id="order-panel" class="hidden">
+        <section class="status-hero">
+            <span id="current-status" class="status-pill status-pill-lg"></span>
+            <p class="order-meta">Commande <strong id="order-id"></strong> - client <span id="order-customer"></span></p>
+        </section>
 
-    <h2>Evolution</h2>
-    <ul id="timeline"></ul>
+        <ol id="timeline" class="stepper"></ol>
+    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>

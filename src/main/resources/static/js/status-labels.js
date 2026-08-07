@@ -10,6 +10,9 @@ const STATUS_LABELS = {
 
 const TERMINAL_STATUSES = new Set(['DELIVERED', 'FAILED']);
 
+// Parcours "normal" complet, utilise pour construire le stepper cote client.
+const STATUS_SEQUENCE = ['PAYMENT_PENDING', 'PAYMENT_COMPLETED', 'PREPARING', 'IN_PROGRESS', 'READY', 'DELIVERED'];
+
 // Ordre d'avancement "normal" utilise par le bouton Suivant de l'admin.
 // FAILED n'y figure pas : c'est une sortie d'urgence, pas une etape du parcours.
 const NEXT_STATUS = {

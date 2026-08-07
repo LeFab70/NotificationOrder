@@ -2,30 +2,30 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin - Suivi des commandes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
-<h1>Commandes</h1>
-<div id="connection-status" class="connection-status">Connexion...</div>
+<div class="page">
+    <header class="page-header">
+        <div>
+            <p class="eyebrow">Back office</p>
+            <h1>Commandes</h1>
+        </div>
+        <div id="connection-status" class="connection-pill">Connexion...</div>
+    </header>
 
-<table>
-    <thead>
-    <tr>
-        <th>Client</th>
-        <th>Statut</th>
-        <th>Creee le</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody id="orders-body"></tbody>
-</table>
+    <form id="create-order-form" class="create-form">
+        <input type="text" id="customer-id-input" placeholder="Nom du client" required>
+        <button type="submit" class="btn btn-primary">Nouvelle commande</button>
+    </form>
 
-<form id="create-order-form">
-    <input type="text" id="customer-id-input" placeholder="Identifiant client" required>
-    <button type="submit">Creer une commande</button>
-</form>
+    <div id="orders-grid" class="orders-grid"></div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
