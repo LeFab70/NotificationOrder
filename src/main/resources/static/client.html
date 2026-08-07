@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Order tracking</title>
@@ -7,11 +7,23 @@
 </head>
 <body>
 
+<h1>Suivi de votre commande</h1>
+<div id="connection-status" class="connection-status">Connexion...</div>
+
+<div id="order-missing" class="hidden">Aucune commande specifiee.</div>
+
+<div id="order-panel" class="hidden">
+    <p>Commande <strong id="order-id"></strong> - client <span id="order-customer"></span></p>
+    <p>Statut actuel : <span id="current-status" class="status-badge"></span></p>
+
+    <h2>Evolution</h2>
+    <ul id="timeline"></ul>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-
-<script src="/js/main.js"></script>
+<script src="/js/status-labels.js"></script>
+<script src="/js/ws.js"></script>
+<script src="/js/client.js"></script>
 </body>
 </html>

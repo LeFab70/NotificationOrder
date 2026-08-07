@@ -1,0 +1,147 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    background: #ffffff;
+    color: #1f2933;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #0f172a;
+        color: #e2e8f0;
+    }
+
+    th, td {
+        border-bottom-color: #334155;
+    }
+
+    #create-order-form input {
+        background: #1e293b;
+        border-color: #334155;
+        color: #e2e8f0;
+    }
+
+    #timeline {
+        border-left-color: #334155;
+    }
+}
+
+h1 {
+    font-size: 1.5rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.connection-status {
+    display: inline-block;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.connection-status.connected {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.connection-status.disconnected {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th, td {
+    text-align: left;
+    padding: 0.6rem 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 0.9rem;
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    padding: 0.4rem 0.7rem;
+    font-size: 0.85rem;
+    background: #2563eb;
+    color: white;
+}
+
+button.danger {
+    background: #dc2626;
+}
+
+#create-order-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+#create-order-form input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.status-PAYMENT_PENDING { background: #fef9c3; color: #854d0e; }
+.status-PAYMENT_COMPLETED { background: #dbeafe; color: #1e40af; }
+.status-PREPARING { background: #ffedd5; color: #9a3412; }
+.status-IN_PROGRESS { background: #ede9fe; color: #5b21b6; }
+.status-READY { background: #cffafe; color: #155e75; }
+.status-DELIVERED { background: #dcfce7; color: #166534; }
+.status-FAILED { background: #fee2e2; color: #991b1b; }
+
+#timeline {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    border-left: 2px solid #cbd5e1;
+}
+
+#timeline li {
+    padding: 0.5rem 0 0.5rem 1rem;
+    margin-left: -1px;
+    border-left: 2px solid #2563eb;
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.timeline-time {
+    color: #64748b;
+    font-size: 0.85rem;
+}

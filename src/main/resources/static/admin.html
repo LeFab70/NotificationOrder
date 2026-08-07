@@ -1,17 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Admin List of orders</title>
+    <title>Admin - Suivi des commandes</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
+<h1>Commandes</h1>
+<div id="connection-status" class="connection-status">Connexion...</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Client</th>
+        <th>Statut</th>
+        <th>Creee le</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody id="orders-body"></tbody>
+</table>
+
+<form id="create-order-form">
+    <input type="text" id="customer-id-input" placeholder="Identifiant client" required>
+    <button type="submit">Creer une commande</button>
+</form>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-
-<script src="/js/main.js"></script>
+<script src="/js/status-labels.js"></script>
+<script src="/js/ws.js"></script>
+<script src="/js/admin.js"></script>
 </body>
 </html>
