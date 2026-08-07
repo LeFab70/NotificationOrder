@@ -4,7 +4,10 @@ import org.fab.notificationorderlive.entities.OrderStatusHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface NotificationsRepository extends JpaRepository<OrderStatusHistory, String> {
+import java.util.List;
 
+@Repository
+public interface OrderStatusHistoryRepository extends JpaRepository<OrderStatusHistory, String> {
+
+    List<OrderStatusHistory> findByOrder_IdOrderByCreatedAtAsc(String orderId);
 }
