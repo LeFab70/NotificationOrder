@@ -6,7 +6,7 @@ import org.fab.notificationorderlive.dto.OrderCreateRequest;
 import org.fab.notificationorderlive.dto.OrderDto;
 import org.fab.notificationorderlive.dto.OrderStatusHistoryDto;
 import org.fab.notificationorderlive.dto.UpdateOrderStatusRequest;
-import org.fab.notificationorderlive.service.OrderService;
+import org.fab.notificationorderlive.service.IOrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderController {
 
-    private final OrderService orderService;
+    private final IOrderService orderService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
