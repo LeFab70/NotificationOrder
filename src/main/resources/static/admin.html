@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin - Suivi des commandes</title>
+    <script>
+        (function () {
+            var stored = localStorage.getItem('notificationOrderLive:theme');
+            if (stored) document.documentElement.setAttribute('data-theme', stored);
+        })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
@@ -16,7 +22,10 @@
             <p class="eyebrow">Back office</p>
             <h1>Commandes</h1>
         </div>
-        <div id="connection-status" class="connection-pill">Connexion...</div>
+        <div class="header-actions">
+            <button id="theme-toggle" type="button" class="theme-toggle"></button>
+            <div id="connection-status" class="connection-pill">Connexion...</div>
+        </div>
     </header>
 
     <form id="create-order-form" class="create-form">
@@ -30,6 +39,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="/js/status-labels.js"></script>
+<script src="/js/theme.js"></script>
 <script src="/js/ws.js"></script>
 <script src="/js/admin.js"></script>
 </body>

@@ -8,10 +8,20 @@
     --accent-text: #ffffff;
     --danger: #e11d2e;
     --success: #0a8a3f;
+
+    --status-payment-pending-bg: #fff4cc; --status-payment-pending-fg: #8a6100;
+    --status-payment-completed-bg: #dbeafe; --status-payment-completed-fg: #1249b0;
+    --status-preparing-bg: #ffe4cc; --status-preparing-fg: #a04c00;
+    --status-in-progress-bg: #ece0ff; --status-in-progress-fg: #5c22c9;
+    --status-ready-bg: #cdf8ef; --status-ready-fg: #0a7c66;
+    --status-delivered-bg: #d7f7de; --status-delivered-fg: #0a8a3f;
+    --status-failed-bg: #ffe0e2; --status-failed-fg: #c8102e;
+    --pulse-rgb: 10, 10, 10;
 }
 
+/* Sombre automatique (preference systeme), sauf si l'utilisateur a choisi explicitement via le toggle. */
 @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme]) {
         --bg: #000000;
         --surface: #141414;
         --text: #f5f5f5;
@@ -21,7 +31,38 @@
         --accent-text: #0a0a0a;
         --danger: #ff5a5f;
         --success: #34d17c;
+
+        --status-payment-pending-bg: #3a2f00; --status-payment-pending-fg: #ffd666;
+        --status-payment-completed-bg: #0e2a52; --status-payment-completed-fg: #7db4ff;
+        --status-preparing-bg: #3a2100; --status-preparing-fg: #ffb066;
+        --status-in-progress-bg: #2a1a4d; --status-in-progress-fg: #c6a5ff;
+        --status-ready-bg: #073c33; --status-ready-fg: #5be0c4;
+        --status-delivered-bg: #0d3a1c; --status-delivered-fg: #5be08a;
+        --status-failed-bg: #3d0d13; --status-failed-fg: #ff8b93;
+        --pulse-rgb: 255, 255, 255;
     }
+}
+
+/* Choix explicite via le bouton de toggle : l'emporte toujours sur la preference systeme. */
+:root[data-theme="dark"] {
+    --bg: #000000;
+    --surface: #141414;
+    --text: #f5f5f5;
+    --text-muted: #8f8f8f;
+    --border: #262626;
+    --accent: #ffffff;
+    --accent-text: #0a0a0a;
+    --danger: #ff5a5f;
+    --success: #34d17c;
+
+    --status-payment-pending-bg: #3a2f00; --status-payment-pending-fg: #ffd666;
+    --status-payment-completed-bg: #0e2a52; --status-payment-completed-fg: #7db4ff;
+    --status-preparing-bg: #3a2100; --status-preparing-fg: #ffb066;
+    --status-in-progress-bg: #2a1a4d; --status-in-progress-fg: #c6a5ff;
+    --status-ready-bg: #073c33; --status-ready-fg: #5be0c4;
+    --status-delivered-bg: #0d3a1c; --status-delivered-fg: #5be08a;
+    --status-failed-bg: #3d0d13; --status-failed-fg: #ff8b93;
+    --pulse-rgb: 255, 255, 255;
 }
 
 * {
@@ -52,6 +93,31 @@ body {
     align-items: flex-start;
     margin-bottom: 2rem;
     gap: 1rem;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.theme-toggle {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    white-space: nowrap;
+}
+
+.theme-toggle:hover {
+    border-color: var(--text-muted);
 }
 
 .eyebrow {
@@ -275,23 +341,13 @@ h1 {
     padding: 0.6rem 1.1rem;
 }
 
-.status-PAYMENT_PENDING { background: #fff4cc; color: #8a6100; }
-.status-PAYMENT_COMPLETED { background: #dbeafe; color: #1249b0; }
-.status-PREPARING { background: #ffe4cc; color: #a04c00; }
-.status-IN_PROGRESS { background: #ece0ff; color: #5c22c9; }
-.status-READY { background: #cdf8ef; color: #0a7c66; }
-.status-DELIVERED { background: #d7f7de; color: #0a8a3f; }
-.status-FAILED { background: #ffe0e2; color: #c8102e; }
-
-@media (prefers-color-scheme: dark) {
-    .status-PAYMENT_PENDING { background: #3a2f00; color: #ffd666; }
-    .status-PAYMENT_COMPLETED { background: #0e2a52; color: #7db4ff; }
-    .status-PREPARING { background: #3a2100; color: #ffb066; }
-    .status-IN_PROGRESS { background: #2a1a4d; color: #c6a5ff; }
-    .status-READY { background: #073c33; color: #5be0c4; }
-    .status-DELIVERED { background: #0d3a1c; color: #5be08a; }
-    .status-FAILED { background: #3d0d13; color: #ff8b93; }
-}
+.status-PAYMENT_PENDING { background: var(--status-payment-pending-bg); color: var(--status-payment-pending-fg); }
+.status-PAYMENT_COMPLETED { background: var(--status-payment-completed-bg); color: var(--status-payment-completed-fg); }
+.status-PREPARING { background: var(--status-preparing-bg); color: var(--status-preparing-fg); }
+.status-IN_PROGRESS { background: var(--status-in-progress-bg); color: var(--status-in-progress-fg); }
+.status-READY { background: var(--status-ready-bg); color: var(--status-ready-fg); }
+.status-DELIVERED { background: var(--status-delivered-bg); color: var(--status-delivered-fg); }
+.status-FAILED { background: var(--status-failed-bg); color: var(--status-failed-fg); }
 
 /* Etat vide */
 .empty-state {
@@ -388,20 +444,9 @@ h1 {
 }
 
 @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(10, 10, 10, 0.35); }
-    70% { box-shadow: 0 0 0 9px rgba(10, 10, 10, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(10, 10, 10, 0); }
-}
-
-@media (prefers-color-scheme: dark) {
-    .step.current .step-dot {
-        animation-name: pulse-dark;
-    }
-    @keyframes pulse-dark {
-        0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.35); }
-        70% { box-shadow: 0 0 0 9px rgba(255, 255, 255, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
-    }
+    0% { box-shadow: 0 0 0 0 rgba(var(--pulse-rgb), 0.35); }
+    70% { box-shadow: 0 0 0 9px rgba(var(--pulse-rgb), 0); }
+    100% { box-shadow: 0 0 0 0 rgba(var(--pulse-rgb), 0); }
 }
 
 .step.failed .step-dot {
